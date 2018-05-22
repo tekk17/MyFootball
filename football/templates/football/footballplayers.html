@@ -1,0 +1,56 @@
+{% extends 'football/base.html' %}
+{% block title %}All Football Players{% endblock %}
+<!-- {% block footballplayers_active %}active{% endblock %} -->
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'football:footballplayers' 'all' %}">View All</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th>Name</th>
+							<th>Nationality</th>
+							<th>Club</th>
+							<th>Shirt Number</th>
+							<!-- <th>Playing Position</th> -->
+							<th>Strengths</th>
+							<th>Weakness</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for footballplayers in footballplayers_list %}
+								<tr>
+									<td>{{ footballplayers.playerName }}</td>
+									<td>{{ footballplayers.playernationality }}</td>
+									<td>{{ footballplayers.footballclub }}</td>
+									<td>{{ footballplayers.shirtNumber }}</td>
+									<!--<td>{{ footballplayers.playerPosition }}</td> -->
+									<td>{{ footballplayers.playerStrengths }}</td>
+									<td>{{ footballplayers.playerWeakness }}</td>
+								</tr>
+							{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

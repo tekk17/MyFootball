@@ -1,0 +1,77 @@
+{% extends 'football/base.html' %}
+{% block title %}{{ footballclub }}{% endblock %}
+{% block footballclubs_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid footballplayers-container">
+	<div class="row">
+		<!-- Left Album Info -->
+		<div class="col-sm-4 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<a href="{% url 'football:detail' footballclub.id %}">
+					{% if footballclub.clubBadge %}
+						<img src="{{ footballclub.clubBadge.url }}" class="img-responsive">
+					{% else %}
+						<h3>No image to display</h3>
+					{% endif %}
+				
+				</a>
+				<h2>{{ footballclub.clubName }}</h2>
+				<h3>League: {{ footballclub.clubLeague }}</h3>
+				<h3>Kit Color: {{ footballclub.clubJersey }}</h3>
+				</div>
+			</div>
+		</div>
+		<!-- Right Player Info -->
+		<div class="col-sm-8 col-md-9">
+		
+			<ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'football:detail' footballclub.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'football:create_footballplayer' footballclub.id %}">Add A New Player</a></li>
+            </ul>
+			
+			
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h3>Players</h3>
+					
+					{% if error_message %}
+						<p><strong> {{ error_message }}</strong></p>
+					{% endif %}
+					
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th>Nationality</th>
+							<th>Club</th>
+							<th>Shirt Number</th>
+							<!-- <th>Playing Position</th> -->
+							<th>Strengths</th>
+							<th>Weakness</th>
+						</tr>
+						</thead>
+						<tbody>
+							{% for footballplayers in footballclub.footballplayers_set.all %}
+								<tr>
+									<td>{{ footballplayers.playerName }}</td>
+									<td>{{ footballplayers.playernationality }}</td>
+									<td>{{ footballplayers.footballclub }}</td>
+									<td>{{ footballplayers.shirtNumber }}</td>
+									<!--<td>{{ footballplayers.playerPosition }}</td> -->
+									<td>{{ footballplayers.playerStrengths }}</td>
+									<td>{{ footballplayers.playerWeakness }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+{% endblock %}
